@@ -36,6 +36,6 @@ COMMON_DPM_OPTS = [
 ]
 
 
-def set_register_opts():
+def register_opts():
     cfg.CONF.register_group(DPM_GROUP)
     cfg.CONF.register_opts(COMMON_DPM_OPTS, group=DPM_GROUP)
