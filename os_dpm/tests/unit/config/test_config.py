@@ -15,12 +15,12 @@
 
 from oslo_config import cfg
 from oslo_config.fixture import Config
+from oslotest import base
 
 from os_dpm.config import config
-from os_dpm.tests import base
 
 
-class TestNetworkingDpm(base.TestCase):
+class TestNetworkingDpm(base.BaseTestCase):
 
     def test_register_opts(self):
         conf = Config()
