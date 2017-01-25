@@ -27,10 +27,10 @@ class TestNetworkingDpm(base.BaseTestCase):
         conf.load_raw_values(group="dpm", hmc='host')
         conf.load_raw_values(group="dpm", hmc_username='username')
         conf.load_raw_values(group="dpm", hmc_password='password')
-        conf.load_raw_values(group="dpm", cpc_uuid='uuid')
+        conf.load_raw_values(group="dpm", cpc_object_id='uuid')
 
         config.register_opts()
         self.assertEqual('host', cfg.CONF.dpm.hmc)
         self.assertEqual('username', cfg.CONF.dpm.hmc_username)
         self.assertEqual('password', cfg.CONF.dpm.hmc_password)
-        self.assertEqual('uuid', cfg.CONF.dpm.cpc_uuid)
+        self.assertEqual('uuid', cfg.CONF.dpm.cpc_object_id)
