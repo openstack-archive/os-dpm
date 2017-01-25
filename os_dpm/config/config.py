@@ -18,21 +18,23 @@ from oslo_config import cfg
 DPM_GROUP = cfg.OptGroup('dpm',
                          title='DPM options',
                          help="""
-Configurations for the IBM z Systems and Linux One hypervisor (PR/SM) in
-DPM (Dynamic Partition Manager) mode. The hypervisor is managed by the
-ReST APIs hosted on the HMC (Hardware Management Console of the system.
+Configuration options for IBM z Systems and IBM LinuxONE in DPM (Dynamic
+Partition Manager) administrative mode. A z Systems or LinuxONE machine is
+termed "CPC" (Central Processor Complex). The CPCs are managed via the Web
+Services API exposed by the "HMC" (Hardware Management Console). One HMC can
+manage multiple CPCs.
 """)
 
 
 COMMON_DPM_OPTS = [
     cfg.StrOpt('hmc', help="""
-    Hostname or IP address for connection to HMC via zhmcclient"""),
+    Hostname or IP address of the HMC that manages the target CPC"""),
     cfg.StrOpt('hmc_username', help="""
-    User name for connection to HMC Host."""),
+    User name for connection to the HMC"""),
     cfg.StrOpt('hmc_password', help="""
-    Password for connection to HMC Host."""),
+    Password for connection to the HMC"""),
     cfg.StrOpt('cpc_uuid', help="""
-    Uuid of the CPC"""),
+    DPM Object-id of the target CPC"""),
 ]
 
 
