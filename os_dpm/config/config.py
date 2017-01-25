@@ -18,21 +18,35 @@ from oslo_config import cfg
 DPM_GROUP = cfg.OptGroup('dpm',
                          title='DPM options',
                          help="""
-Configurations for the IBM z Systems and Linux One hypervisor (PR/SM) in
-DPM (Dynamic Partition Manager) mode. The hypervisor is managed by the
-ReST APIs hosted on the HMC (Hardware Management Console of the system.
+Configuration options for IBM z Systems and IBM LinuxONE in DPM (Dynamic
+Partition Manager) administrative mode. A z Systems or LinuxONE machine is
+termed "CPC" (Central Processor Complex). The CPCs are managed via the Web
+Services API exposed by the "HMC" (Hardware Management Console). One HMC can
+manage multiple CPCs.
+
+DPM config options for the Nova compute service (one for each OpenStack
+hypervisor host) specify the target CPC, the HMC managing it, and limits on the
+resource usage on the target CPC. These limits ensure that only a subset of the
+target CPC is used for the OpenStack hypervisor host. To use the Nova driver
+for DPM, the `[DEFAULT].compute_driver` config option needs to be set to the
+value `dpm.DPMDriver`.
+
+DPM config options for the Neutron agent on the compute node (one agent
+instance for each OpenStack hypervisor host) specify the target CPC, the HMC
+managing it, and the OpenStack physical networks for the OpenStack hypervisor
+host and their backing network adapters and ports in the target CPC.
 """)
 
 
 COMMON_DPM_OPTS = [
     cfg.StrOpt('hmc', help="""
-    Hostname or IP address for connection to HMC via zhmcclient"""),
+    Hostname or IP address of the HMC that manages the target CPC"""),
     cfg.StrOpt('hmc_username', help="""
-    User name for connection to HMC Host."""),
+    User name for connection to the HMC"""),
     cfg.StrOpt('hmc_password', help="""
-    Password for connection to HMC Host."""),
+    Password for connection to the HMC"""),
     cfg.StrOpt('cpc_uuid', help="""
-    Uuid of the CPC"""),
+    Object-id of the target CPC"""),
 ]
 
 
