@@ -18,21 +18,39 @@ from oslo_config import cfg
 DPM_GROUP = cfg.OptGroup('dpm',
                          title='DPM options',
                          help="""
-Configurations for the IBM z Systems and Linux One hypervisor (PR/SM) in
-DPM (Dynamic Partition Manager) mode. The hypervisor is managed by the
-ReST APIs hosted on the HMC (Hardware Management Console of the system.
+The IBM z13 system generation (and IBM LinuxONE) introduced a new
+administrative mode named "Dynamic Partition Manager" (DPM) that allows for
+managing the firmware-based logical partition hypervisor (PR/SM) with the
+dynamic capabilities known from software-based hypervisors. A z13 or LinuxONE
+machine is termed CPC (Central Processor Complex). Its management access point
+is the z Systems HMC (Hardware Management Console) which exposes a Web Services
+API that is used by the Nova driver for DPM and by the Neutron agent for DPM.
+One HMC can manage multiple CPCs.
+
+The DPM config options are used by the Nova compute service and by the Neutron
+agent on the compute node.
+
+DPM config options for the Nova compute service specify the target CPC, the HMC
+managing it, and limits on the resource usage on the target CPC. These limits
+ensure that only a subset of the target CPC is used for the OpenStack
+hypervisor host. To use the Nova driver for DPM, the [DEFAULT].compute_driver
+config option needs to be set to the value: dpm.DPMDriver
+
+DPM config options for the Neutron agent on the compute node specify the target
+CPC, the HMC managing it, and the physical network adapters in the target CPC
+that can be used for the OpenStack hypervisor host.
 """)
 
 
 COMMON_DPM_OPTS = [
-    cfg.StrOpt('hmc', help="""
-    Hostname or IP address for connection to HMC via zhmcclient"""),
-    cfg.StrOpt('hmc_username', help="""
-    User name for connection to HMC Host."""),
-    cfg.StrOpt('hmc_password', help="""
-    Password for connection to HMC Host."""),
+    cfg.StrOpt('hmc', default='', required=True, help="""
+    Hostname or IP address of the HMC that manages the target CPC"""),
+    cfg.StrOpt('hmc_username', default='', required=True, help="""
+    User name for connection to the HMC"""),
+    cfg.StrOpt('hmc_password', default='', required=True, help="""
+    Password for connection to the HMC"""),
     cfg.StrOpt('cpc_uuid', help="""
-    Uuid of the CPC"""),
+    Uuid of the target CPC"""),
 ]
 
 
