@@ -14,6 +14,7 @@
 
 from oslo_config import cfg
 
+from os_dpm.config.cfg import DPMObjectIdOpt
 
 DPM_GROUP = cfg.OptGroup('dpm',
                          title='DPM options',
@@ -33,7 +34,7 @@ COMMON_DPM_OPTS = [
     User name for connection to the HMC"""),
     cfg.StrOpt('hmc_password', help="""
     Password for connection to the HMC"""),
-    cfg.StrOpt('cpc_object_id', help="""
+    DPMObjectIdOpt('cpc_object_id', help="""
     DPM Object-id of the target CPC"""),
 ]
 
