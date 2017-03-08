@@ -20,7 +20,7 @@ from oslotest import base
 from os_dpm.config import config
 
 
-class TestNetworkingDpm(base.BaseTestCase):
+class TestConfig(base.BaseTestCase):
 
     def test_register_opts(self):
         conf = Config()
