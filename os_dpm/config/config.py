@@ -31,7 +31,7 @@ COMMON_DPM_OPTS = [
     Hostname or IP address of the HMC that manages the target CPC"""),
     cfg.StrOpt('hmc_username', help="""
     User name for connection to the HMC"""),
-    cfg.StrOpt('hmc_password', help="""
+    cfg.StrOpt('hmc_password', secret=True, help="""
     Password for connection to the HMC"""),
     cfg.StrOpt('cpc_object_id', help="""
     DPM Object-id of the target CPC"""),
